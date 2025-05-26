@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 
 class ForgotPasswordActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,6 +22,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
 
         val emailEditText = findViewById<TextInputEditText>(R.id.til_forgot_password_email)
         val resetButton = findViewById<Button>(R.id.btn_reset_password)
@@ -31,9 +37,16 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: Implement actual password reset logic here
-            Toast.makeText(this, "Password reset link sent to your email", Toast.LENGTH_SHORT).show()
-            finish()
+            auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Password reset link sent to your email", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Failed to send reset email: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
     }
 }
