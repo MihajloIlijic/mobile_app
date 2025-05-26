@@ -7,4 +7,6 @@
     <dimen name="btn_margin">16dp</dimen>
     <dimen name="btn_padding">10dp</dimen>
     <dimen name="btn_textSize">18sp</dimen>
+    <dimen name="landingpage_marginTop">32dp</dimen>
+    <dimen name="text_size_title">24sp</dimen>
 </resources>

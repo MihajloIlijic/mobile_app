@@ -23,7 +23,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
             insets
         }
 
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
         val emailEditText = findViewById<TextInputEditText>(R.id.et_forgot_password_email)

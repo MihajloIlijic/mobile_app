@@ -25,15 +25,8 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Check if user is already signed in
-        if (auth.currentUser != null) {
-            // TODO: Navigate to main activity
-            // startActivity(Intent(this, MainActivity::class.java))
-            // finish()
-        }
 
         val emailEditText = findViewById<TextInputEditText>(R.id.et_login_email)
         val passwordEditText = findViewById<TextInputEditText>(R.id.et_login_password)
@@ -53,9 +46,10 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        // TODO: Navigate to main activity
-                        // startActivity(Intent(this, MainActivity::class.java))
-                        // finish()
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
                     } else {
                         // If sign in fails, display a message to the user
                         Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
@@ -64,7 +58,6 @@ class LoginActivity : AppCompatActivity() {
                 }
         }
 
-        // Set up click listeners for registration and forgot password
         findViewById<TextView>(R.id.tv_register_prompt).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }

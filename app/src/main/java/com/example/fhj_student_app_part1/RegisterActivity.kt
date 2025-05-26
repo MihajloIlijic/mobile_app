@@ -49,11 +49,17 @@ class RegisterActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Registration success
-                        Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show()
-                        finish()
+                        // Send email verification
+                        auth.currentUser?.sendEmailVerification()
+                            ?.addOnCompleteListener { verificationTask ->
+                                if (verificationTask.isSuccessful) {
+                                    Toast.makeText(this, "Registration successful. Please check your email for verification.", Toast.LENGTH_LONG).show()
+                                } else {
+                                    Toast.makeText(this, "Registration successful but failed to send verification email.", Toast.LENGTH_LONG).show()
+                                }
+                                finish()
+                            }
                     } else {
-                        // If registration fails, display a message to the user
                         Toast.makeText(this, "Registration failed: ${task.exception?.message}",
                             Toast.LENGTH_SHORT).show()
                     }
