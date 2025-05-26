@@ -4,4 +4,12 @@
     <string name="email_hint">E-Mail</string>
     <string name="password_hint">Password</string>
     <string name="btn_login_login_text">Login</string>
+    <string name="link_to_register">Do not have an account? Register</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password_text">Enter your email address and we\'ll send you instructions to reset your password.</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_link_send">Send Reset Link</string>
+    <string name="create_acc">Create Account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
 </resources>
