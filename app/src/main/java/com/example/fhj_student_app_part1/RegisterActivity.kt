@@ -53,9 +53,14 @@ class RegisterActivity : AppCompatActivity() {
                         auth.currentUser?.sendEmailVerification()
                             ?.addOnCompleteListener { verificationTask ->
                                 if (verificationTask.isSuccessful) {
-                                    Toast.makeText(this, "Registration successful. Please check your email for verification.", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this, 
+                                        "Registration successful. Please check your email for verification. You must verify your email before you can log in.", 
+                                        Toast.LENGTH_LONG).show()
+                                    auth.signOut()
                                 } else {
-                                    Toast.makeText(this, "Registration successful but failed to send verification email.", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this, 
+                                        "Registration successful but failed to send verification email. Please try again later.", 
+                                        Toast.LENGTH_LONG).show()
                                 }
                                 finish()
                             }

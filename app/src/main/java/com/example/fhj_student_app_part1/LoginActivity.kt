@@ -27,10 +27,11 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-
         val emailEditText = findViewById<TextInputEditText>(R.id.et_login_email)
         val passwordEditText = findViewById<TextInputEditText>(R.id.et_login_password)
-        val loginButton = findViewById<Button>(R.id.btn_login_login)
+        val loginButton = findViewById<Button>(R.id.btn_login)
+        val registerTextView = findViewById<TextView>(R.id.tv_register)
+        val forgotPasswordTextView = findViewById<TextView>(R.id.tv_forgot_password)
 
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
@@ -44,25 +45,28 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                        finish()
+                        val user = auth.currentUser
+                        if (user?.isEmailVerified == true) {
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        } else {
+                            auth.signOut()
+                            Toast.makeText(this, 
+                                "Please verify your email before logging in. Check your inbox for the verification link.", 
+                                Toast.LENGTH_LONG).show()
+                        }
                     } else {
-                        // If sign in fails, display a message to the user
-                        Toast.makeText(this, "Authentication failed: ${task.exception?.message}",
+                        Toast.makeText(this, "Login failed: ${task.exception?.message}",
                             Toast.LENGTH_SHORT).show()
                     }
                 }
         }
 
-        findViewById<TextView>(R.id.tv_register_prompt).setOnClickListener {
+        registerTextView.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        findViewById<TextView>(R.id.tv_forgot_password).setOnClickListener {
+        forgotPasswordTextView.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
     }
