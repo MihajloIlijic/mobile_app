@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FHJ_Student_App_part1</string>
+    <string name="my_text">Welcome to login</string>
+    <string name="email_hint">E-Mail</string>
+    <string name="password_hint">Password</string>
+    <string name="btn_login_login_text">Login</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tv_title_margintop">32dp</dimen>
+    <dimen name="iv_login_height">150dp</dimen>
+    <dimen name="email_textsize">16sp</dimen>
+    <dimen name="login_padding">16dp</dimen>
+    <dimen name="btn_margin">16dp</dimen>
+    <dimen name="btn_padding">10dp</dimen>
+    <dimen name="btn_textSize">18sp</dimen>
+</resources>
