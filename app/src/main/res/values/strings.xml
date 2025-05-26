@@ -12,6 +12,7 @@
     <string name="create_acc">Create Account</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
-    <string name="landing_page_title">Welcome to the TODO App</string>
+    <string name="landing_page_title">Keep Up</string>
     <string name="logout">Logout</string>
+    <string name="settings_description_text">Settings</string>
 </resources>
