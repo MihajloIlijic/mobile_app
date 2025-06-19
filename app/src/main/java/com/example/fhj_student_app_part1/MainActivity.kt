@@ -31,6 +31,18 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        findViewById<Button>(R.id.btn_logout).setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
 
+        findViewById<Button>(R.id.btn_navigate_create_book).setOnClickListener {
+            startActivity(Intent(this, CreateBookActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btn_show_books).setOnClickListener {
+            startActivity(Intent(this, BookListActivity::class.java))
+        }
     }
 }
