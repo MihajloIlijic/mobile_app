@@ -12,7 +12,30 @@
     <string name="create_acc">Create Account</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
-    <string name="landing_page_title">Keep Up</string>
+    <string name="landing_page_title">My Books</string>
     <string name="logout">Logout</string>
     <string name="settings_description_text">Settings</string>
+    <string name="add_book">Add Book</string>
+    <string name="edit_book">Edit</string>
+    <string name="delete_book">Delete</string>
+    <string name="no_books_yet">No books yet</string>
+    <string name="add_first_book">Tap the + button to add your first book</string>
+    
+    <!-- Add Book Page -->
+    <string name="add_new_book">Add New Book</string>
+    <string name="add_book_description">Fill in the details below to add a new book to your collection</string>
+    <string name="book_title">Book Title</string>
+    <string name="book_author">Author</string>
+    <string name="book_status">Status</string>
+    <string name="save_book">Save Book</string>
+    <string name="saving_book">Saving...</string>
+    <string name="book_saved_success">Book saved successfully!</string>
+    <string name="error_saving_book">Error saving book. Please try again.</string>
+    
+    <!-- Validation Messages -->
+    <string name="error_title_required">Title is required</string>
+    <string name="error_title_too_short">Title must be at least 2 characters</string>
+    <string name="error_author_required">Author is required</string>
+    <string name="error_author_too_short">Author must be at least 2 characters</string>
+    <string name="error_status_required">Status is required</string>
 </resources>
