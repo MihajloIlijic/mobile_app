@@ -63,7 +63,11 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_books)
         adapter = BookAdapter(books, currentUserId) { book, action ->
             when (action) {
-                BookAction.EDIT -> Toast.makeText(this, "Edit: ${book.title}", Toast.LENGTH_SHORT).show() // TODO: Edit-Logik
+                BookAction.EDIT -> {
+                    val intent = Intent(this, CreateBookActivity::class.java)
+                    intent.putExtra(CreateBookActivity.EXTRA_BOOK_ID, book.id)
+                    startActivity(intent)
+                }
                 BookAction.DELETE -> deleteBook(book)
             }
         }

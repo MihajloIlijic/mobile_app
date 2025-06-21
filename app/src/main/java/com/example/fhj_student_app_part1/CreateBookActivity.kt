@@ -18,6 +18,12 @@ import kotlinx.coroutines.launch
 class CreateBookActivity : AppCompatActivity() {
     private val repository = BookRepository()
     private val TAG = "CreateBookActivity"
+    private var isEditMode = false
+    private var bookId: String? = null
+
+    companion object {
+        const val EXTRA_BOOK_ID = "book_id"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +34,21 @@ class CreateBookActivity : AppCompatActivity() {
             insets
         }
 
+        // Check if we're in edit mode
+        bookId = intent.getStringExtra(EXTRA_BOOK_ID)
+        isEditMode = bookId != null
+
         val authorEditText = findViewById<TextInputEditText>(R.id.et_author)
         val titleEditText = findViewById<TextInputEditText>(R.id.et_title)
         val saveButton = findViewById<Button>(R.id.btn_save_book)
+
+        // Update button text based on mode
+        saveButton.text = if (isEditMode) "Update Book" else "Save Book"
+
+        // If in edit mode, load existing book data
+        if (isEditMode) {
+            loadBookData()
+        }
 
         saveButton.setOnClickListener {
             Log.d(TAG, "Save button clicked")
@@ -47,25 +65,98 @@ class CreateBookActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val book = Book(author = author, title = title, status = status)
-            Log.d(TAG, "Created book: $book")
-            
+            if (isEditMode) {
+                updateBook(author, title, status)
+            } else {
+                createBook(author, title, status)
+            }
+        }
+    }
+
+    private fun loadBookData() {
+        bookId?.let { id ->
+            lifecycleScope.launch {
+                val result = repository.getBook(id)
+                if (result.isSuccess) {
+                    val book = result.getOrNull()
+                    book?.let {
+                        findViewById<TextInputEditText>(R.id.et_author).setText(it.author)
+                        findViewById<TextInputEditText>(R.id.et_title).setText(it.title)
+                    }
+                } else {
+                    Toast.makeText(this@CreateBookActivity, "Error loading book", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        }
+    }
+
+    private fun createBook(author: String, title: String, status: BookStatus) {
+        val book = Book(author = author, title = title, status = status)
+        Log.d(TAG, "Created book: $book")
+        
+        lifecycleScope.launch {
+            try {
+                Log.d(TAG, "Starting to save book...")
+                val result = repository.addBook(book)
+                Log.d(TAG, "Save result: $result")
+                
+                if (result.isSuccess) {
+                    Log.d(TAG, "Book saved successfully")
+                    Toast.makeText(this@CreateBookActivity, "Book saved!", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Log.e(TAG, "Error saving book: ${result.exceptionOrNull()}")
+                    Toast.makeText(this@CreateBookActivity, "Error: ${result.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Exception during save: ${e.message}", e)
+                Toast.makeText(this@CreateBookActivity, "Exception: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun updateBook(author: String, title: String, status: BookStatus) {
+        bookId?.let { id ->
             lifecycleScope.launch {
                 try {
-                    Log.d(TAG, "Starting to save book...")
-                    val result = repository.addBook(book)
-                    Log.d(TAG, "Save result: $result")
+                    Log.d(TAG, "Starting to update book...")
+                    
+                    // First get the existing book
+                    val existingBookResult = repository.getBook(id)
+                    if (existingBookResult.isFailure) {
+                        Toast.makeText(this@CreateBookActivity, "Error loading book", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
+                    
+                    val existingBook = existingBookResult.getOrNull()
+                    if (existingBook == null) {
+                        Toast.makeText(this@CreateBookActivity, "Book not found", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
+                    
+                    // Create updated book with new values
+                    val updatedBook = existingBook.copy(
+                        author = author,
+                        title = title,
+                        status = status,
+                        updatedAt = System.currentTimeMillis()
+                    )
+                    
+                    Log.d(TAG, "Updating book: $updatedBook")
+                    val result = repository.updateBook(updatedBook)
+                    Log.d(TAG, "Update result: $result")
                     
                     if (result.isSuccess) {
-                        Log.d(TAG, "Book saved successfully")
-                        Toast.makeText(this@CreateBookActivity, "Book saved!", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "Book updated successfully")
+                        Toast.makeText(this@CreateBookActivity, "Book updated!", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        Log.e(TAG, "Error saving book: ${result.exceptionOrNull()}")
+                        Log.e(TAG, "Error updating book: ${result.exceptionOrNull()}")
                         Toast.makeText(this@CreateBookActivity, "Error: ${result.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: Exception) {
-                    Log.e(TAG, "Exception during save: ${e.message}", e)
+                    Log.e(TAG, "Exception during update: ${e.message}", e)
                     Toast.makeText(this@CreateBookActivity, "Exception: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
