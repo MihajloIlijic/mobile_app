@@ -19,6 +19,9 @@
             android:name=".CreateBookActivity"
             android:exported="false" />
         <activity
+            android:name=".BookDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity

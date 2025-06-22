@@ -18,9 +18,11 @@ class BookRepository {
     
     suspend fun addBook(book: Book): Result<Book> {
         return try {
+            val currentTime = System.currentTimeMillis()
             val bookWithOwner = book.copy(
                 ownerId = getCurrentUserId() ?: "",
-                updatedAt = System.currentTimeMillis()
+                createdAt = if (book.createdAt == 0L) currentTime else book.createdAt,
+                updatedAt = currentTime
             )
             getBooksCollection()
                 .document(bookWithOwner.id)

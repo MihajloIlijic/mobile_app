@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FHJ_Student_App_part1</string>
+    <string name="app_name">Book Poll</string>
     <string name="my_text">Welcome to login</string>
     <string name="email_hint">E-Mail</string>
     <string name="password_hint">Password</string>
@@ -12,7 +12,7 @@
     <string name="create_acc">Create Account</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
-    <string name="landing_page_title">Keep Up</string>
+    <string name="landing_page_title">Book Poll</string>
     <string name="logout">Logout</string>
     <string name="settings_description_text">Settings</string>
     <string name="add_book">Add Book</string>
@@ -20,4 +20,13 @@
     <string name="delete_book">Delete</string>
     <string name="no_books_yet">No books yet</string>
     <string name="add_first_book">Tap the + button to add your first book</string>
+    <string name="details">Details</string>
+    <string name="book_status">Book Status</string>
+    <string name="toggle_status">Toggle Status</string>
+    <string name="book_details">Book Details</string>
+    <string name="book_id">Book ID:</string>
+    <string name="owner">Owner:</string>
+    <string name="thoughts">Thoughts:</string>
+    <string name="created_date">Created:</string>
+    <string name="last_updated">Last Updated:</string>
 </resources>

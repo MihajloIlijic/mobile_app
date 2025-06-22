@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fhj_student_app_part1.models.Book
 import com.example.fhj_student_app_part1.repository.BookRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -63,8 +64,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_books)
         adapter = BookAdapter(books, currentUserId) { book, action ->
             when (action) {
-                BookAction.EDIT -> Toast.makeText(this, "Edit: ${book.title}", Toast.LENGTH_SHORT).show() // TODO: Edit-Logik
-                BookAction.DELETE -> deleteBook(book)
+                BookAction.VIEW -> openBookDetails(book)
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -74,6 +74,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab_add_book).setOnClickListener {
             startActivity(Intent(this, CreateBookActivity::class.java))
         }
+    }
+
+    private fun openBookDetails(book: Book) {
+        val intent = Intent(this, BookDetailsActivity::class.java)
+        intent.putExtra("book_id", book.id)
+        startActivity(intent)
     }
 
     private fun loadBooks() {
@@ -86,23 +92,6 @@ class MainActivity : AppCompatActivity() {
                 updateEmptyState()
             } else {
                 Toast.makeText(this@MainActivity, "Error loading books", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun deleteBook(book: Book) {
-        lifecycleScope.launch {
-            val result = repository.deleteBook(book.id)
-            if (result.isSuccess) {
-                Toast.makeText(this@MainActivity, "Deleted", Toast.LENGTH_SHORT).show()
-                val position = books.indexOf(book)
-                if (position != -1) {
-                    books.removeAt(position)
-                    adapter.notifyItemRemoved(position)
-                    updateEmptyState()
-                }
-            } else {
-                Toast.makeText(this@MainActivity, "Delete failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -127,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-enum class BookAction { EDIT, DELETE }
+enum class BookAction { VIEW }
 
 class BookAdapter(
     private val books: List<Book>,
@@ -150,16 +139,39 @@ class BookAdapter(
             itemView.findViewById<TextView>(R.id.tv_title).text = book.title
             itemView.findViewById<TextView>(R.id.tv_author).text = book.author
             itemView.findViewById<TextView>(R.id.tv_status).text = book.status.name
-            itemView.findViewById<TextView>(R.id.tv_owner).text = "Owner: ${book.ownerId.take(8)}..."
+            
+            // Display owner email instead of ID
+            val ownerEmail = getOwnerEmail(book.ownerId)
+            itemView.findViewById<TextView>(R.id.tv_owner).text = "Owner: $ownerEmail"
 
-            val btnEdit = itemView.findViewById<Button>(R.id.btn_edit)
-            val btnDelete = itemView.findViewById<Button>(R.id.btn_delete)
+            // Apply light green background if book is owned by current user
             val isOwner = book.ownerId == currentUserId
-            btnEdit.visibility = if (isOwner) View.VISIBLE else View.GONE
-            btnDelete.visibility = if (isOwner) View.VISIBLE else View.GONE
+            if (isOwner) {
+                itemView.setBackgroundResource(R.drawable.owned_book_background)
+            } else {
+                itemView.setBackgroundResource(0) // Reset to default background
+            }
 
-            btnEdit.setOnClickListener { onAction(book, BookAction.EDIT) }
-            btnDelete.setOnClickListener { onAction(book, BookAction.DELETE) }
+            // Details button click
+            itemView.findViewById<MaterialButton>(R.id.btn_details).setOnClickListener {
+                onAction(book, BookAction.VIEW)
+            }
+        }
+        
+        private fun getOwnerEmail(ownerId: String): String {
+            return try {
+                // Try to get the current user's email if it matches the owner
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser?.uid == ownerId) {
+                    currentUser.email ?: "${ownerId.take(8)}..."
+                } else {
+                    // For other users, we can't get their email from Firebase Auth
+                    // So we'll show a placeholder or truncated ID
+                    "${ownerId.take(8)}..."
+                }
+            } catch (e: Exception) {
+                "${ownerId.take(8)}..."
+            }
         }
     }
 }

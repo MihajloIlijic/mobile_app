@@ -36,10 +36,11 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
             android:textAppearance="?attr/textAppearanceLabelSmall"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="UNREAD" />
+            tools:text="UNREAD"
+            />
 
         <TextView
             android:id="@+id/tv_author"
@@ -64,33 +65,15 @@
             app:layout_constraintTop_toBottomOf="@id/tv_author"
             tools:text="Owner: 12345678..." />
 
-        <LinearLayout
-            android:id="@+id/button_container"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
+            android:text="@string/details"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_author">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_edit"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_book"
-                android:textSize="12sp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_delete"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_book"
-                android:textColor="?attr/colorError"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/tv_author" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

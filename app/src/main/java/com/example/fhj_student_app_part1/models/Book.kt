@@ -8,6 +8,7 @@ data class Book(
     val title: String = "",
     val status: BookStatus = BookStatus.UNREAD,
     val ownerId: String = "",
+    val thoughts: String = "",
     val createdAt: Long = 0,
     val updatedAt: Long = 0
 )

@@ -30,6 +30,7 @@ class CreateBookActivity : AppCompatActivity() {
 
         val authorEditText = findViewById<TextInputEditText>(R.id.et_author)
         val titleEditText = findViewById<TextInputEditText>(R.id.et_title)
+        val thoughtsEditText = findViewById<TextInputEditText>(R.id.et_thoughts)
         val saveButton = findViewById<Button>(R.id.btn_save_book)
 
         saveButton.setOnClickListener {
@@ -37,17 +38,24 @@ class CreateBookActivity : AppCompatActivity() {
             
             val author = authorEditText.text.toString().trim()
             val title = titleEditText.text.toString().trim()
+            val thoughts = thoughtsEditText.text.toString().trim()
             val status = BookStatus.UNREAD
 
-            Log.d(TAG, "Author: $author, Title: $title, Status: $status")
+            Log.d(TAG, "Author: $author, Title: $title, Thoughts: $thoughts, Status: $status")
 
             if (author.isEmpty() || title.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "Validation failed - empty fields")
                 return@setOnClickListener
             }
 
-            val book = Book(author = author, title = title, status = status)
+            val book = Book(
+                author = author, 
+                title = title, 
+                thoughts = thoughts,
+                status = status,
+                createdAt = System.currentTimeMillis()
+            )
             Log.d(TAG, "Created book: $book")
             
             lifecycleScope.launch {
