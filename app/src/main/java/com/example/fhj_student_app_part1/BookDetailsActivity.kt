@@ -108,6 +108,8 @@ class BookDetailsActivity : AppCompatActivity() {
         // Set current status
         findViewById<TextView>(R.id.tv_current_status).text = book.status.name
 
+        // Set owner ID
+        findViewById<TextView>(R.id.tv_owner_id).text = getOwnerEmail(book.ownerId)
         
         // Set thoughts
         val thoughtsTextView = findViewById<TextView>(R.id.tv_thoughts)
