@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Buch-Umfrage</string>
+    <string name="my_text">Willkommen zur Anmeldung</string>
+    <string name="email_hint">E-Mail</string>
+    <string name="password_hint">Passwort</string>
+    <string name="btn_login_login_text">Anmelden</string>
+    <string name="link_to_register">Noch kein Konto? Registrieren</string>
+    <string name="forgot_password">Passwort vergessen?</string>
+    <string name="reset_password_text">Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts.</string>
+    <string name="reset_password">Passwort zurücksetzen</string>
+    <string name="reset_link_send">Link zum Zurücksetzen senden</string>
+    <string name="create_acc">Konto erstellen</string>
+    <string name="confirm_password">Passwort bestätigen</string>
+    <string name="register">Registrieren</string>
+    <string name="landing_page_title">Buch-Umfrage</string>
+    <string name="logout">Abmelden</string>
+    <string name="settings_description_text">Einstellungen</string>
+    <string name="add_book">Buch hinzufügen</string>
+    <string name="edit_book">Bearbeiten</string>
+    <string name="update">Aktualisieren</string>
+    <string name="delete_book">Löschen</string>
+    <string name="no_books_yet">Noch keine Bücher</string>
+    <string name="add_first_book">Tippen Sie auf die + Schaltfläche, um Ihr erstes Buch hinzuzufügen</string>
+    <string name="details">Details</string>
+    <string name="book_status">Buchstatus</string>
+    <string name="toggle_status">Status umschalten</string>
+    <string name="book_details">Buchdetails</string>
+    <string name="book_id">Buch-ID:</string>
+    <string name="owner">Besitzer:</string>
+    <string name="thoughts">Gedanken:</string>
+    <string name="created_date">Erstellt:</string>
+    <string name="last_updated">Zuletzt aktualisiert:</string>
+    <string name="book_cover">Buchcover</string>
+    <string name="no_cover_image">Kein Cover-Bild</string>
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="remove">Entfernen</string>
+    <string name="save_book">Buch speichern</string>
+    <string name="author">Autor</string>
+    <string name="title">Titel</string>
+    <string name="thoughts_hint">Gedanken zu diesem Buch</string>
+</resources> 

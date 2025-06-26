@@ -103,7 +103,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No cover image"
+                            android:text="@string/no_cover_image"
                             android:textAppearance="?attr/textAppearanceBodyMedium"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             android:layout_marginTop="8dp" />
