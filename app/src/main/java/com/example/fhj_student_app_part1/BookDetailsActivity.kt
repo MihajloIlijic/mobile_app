@@ -1,9 +1,12 @@
 package com.example.fhj_student_app_part1
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -19,6 +22,7 @@ import com.example.fhj_student_app_part1.repository.BookRepository
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -111,6 +115,9 @@ class BookDetailsActivity : AppCompatActivity() {
         // Set owner ID
         findViewById<TextView>(R.id.tv_owner_id).text = getOwnerEmail(book.ownerId)
         
+        // Display book cover if available
+        displayBookCover()
+        
         // Set thoughts
         val thoughtsTextView = findViewById<TextView>(R.id.tv_thoughts)
         if (book.thoughts.isNotEmpty()) {
@@ -136,6 +143,33 @@ class BookDetailsActivity : AppCompatActivity() {
             findViewById<MaterialButton>(R.id.btn_toggle_status).alpha = 0.5f
             findViewById<MaterialButton>(R.id.btn_edit_book).alpha = 0.5f
             findViewById<MaterialButton>(R.id.btn_delete_book).alpha = 0.5f
+        }
+    }
+
+    private fun displayBookCover() {
+        val imageView = findViewById<ImageView>(R.id.iv_book_cover)
+        val noCoverLayout = findViewById<LinearLayout>(R.id.ll_no_cover)
+        
+        if (book.coverImageUrl.isNotEmpty()) {
+            try {
+                val file = File(book.coverImageUrl)
+                if (file.exists()) {
+                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                    imageView.setImageBitmap(bitmap)
+                    imageView.visibility = View.VISIBLE
+                    noCoverLayout.visibility = View.GONE
+                } else {
+                    imageView.visibility = View.GONE
+                    noCoverLayout.visibility = View.VISIBLE
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading book cover: ${e.message}", e)
+                imageView.visibility = View.GONE
+                noCoverLayout.visibility = View.VISIBLE
+            }
+        } else {
+            imageView.visibility = View.GONE
+            noCoverLayout.visibility = View.VISIBLE
         }
     }
 

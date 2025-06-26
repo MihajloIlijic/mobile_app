@@ -8,9 +8,28 @@ A modern Android application for managing and sharing book collections among stu
 - **Book Management**: Add, edit, and delete books from your personal collection
 - **Status Tracking**: Mark books as READ or UNREAD with easy toggle functionality
 - **Personal Thoughts**: Add personal notes and thoughts about each book
+- **Book Cover Photos**: Take a photo of a book cover using your device's camera and attach it to a book entry
 - **Book Details**: Comprehensive view of book information including creation and update timestamps
-- **Modern UI**: Material Design 3 components with a clean, intuitive interface
+- **Modern UI**: A clean, intuitive interface
 - **Responsive Design**: Optimized for various screen sizes and orientations
+
+## Book Cover Photo Feature
+
+You can now add a photo of your book's cover when creating or editing a book entry:
+
+- Tap the **"Take Photo"** button in the "Add Book" or "Edit Book" screen.
+- The app will request camera permission if not already granted.
+- Take a photo of the book cover. The photo will be shown as a preview.
+- You can remove the photo before saving if you wish.
+- Once saved, the book cover will be displayed in the book details view.
+
+**Where is the photo saved?**
+- The photo is saved **locally** in the app's private storage on your device (not in the cloud or shared with other apps).
+- The file is not uploaded to Firebase or any external server.
+
+**Privacy Note:**
+- Book cover photos are stored securely and are not accessible by other apps or users.
+- If you uninstall the app, the photos will be deleted from your device.
 
 ## Screenshots
 

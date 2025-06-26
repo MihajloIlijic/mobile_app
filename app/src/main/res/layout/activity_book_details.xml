@@ -58,6 +58,62 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_book_title"
                 tools:text="F. Scott Fitzgerald" />
 
+            <!-- Book Cover Image -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_book_cover"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_book_author">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/book_cover_background">
+
+                    <ImageView
+                        android:id="@+id/iv_book_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:contentDescription="Book cover image"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_no_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/book_cover_background">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_book_empty"
+                            android:contentDescription="Book icon"
+                            android:alpha="0.5" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No cover image"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:layout_marginTop="8dp" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Status Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_status"
@@ -68,7 +124,7 @@
                 app:cardElevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_book_author">
+                app:layout_constraintTop_toBottomOf="@id/card_book_cover">
 
                 <LinearLayout
                     android:layout_width="match_parent"
