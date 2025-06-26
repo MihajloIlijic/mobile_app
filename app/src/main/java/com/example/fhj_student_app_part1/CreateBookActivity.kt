@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +32,9 @@ class CreateBookActivity : AppCompatActivity() {
             insets
         }
 
+        // Setup toolbar
+        setupToolbar()
+
         val authorEditText = findViewById<TextInputEditText>(R.id.et_author)
         val titleEditText = findViewById<TextInputEditText>(R.id.et_title)
         val thoughtsEditText = findViewById<TextInputEditText>(R.id.et_thoughts)
@@ -43,7 +47,7 @@ class CreateBookActivity : AppCompatActivity() {
             loadExistingBook(bookId, authorEditText, titleEditText, thoughtsEditText, saveButton)
         } else {
             // Create mode - set default title
-            supportActionBar?.title = getString(R.string.add_book)
+            setToolbarTitle(getString(R.string.add_book))
         }
 
         saveButton.setOnClickListener {
@@ -71,6 +75,24 @@ class CreateBookActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        
+        // Center the title
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.title = ""
+        
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+    }
+
+    private fun setToolbarTitle(title: String) {
+        findViewById<android.widget.TextView>(R.id.tv_toolbar_title).text = title
+    }
+
     private fun loadExistingBook(bookId: String, authorEditText: TextInputEditText, titleEditText: TextInputEditText, thoughtsEditText: TextInputEditText, saveButton: Button) {
         lifecycleScope.launch {
             try {
@@ -84,7 +106,7 @@ class CreateBookActivity : AppCompatActivity() {
                         thoughtsEditText.setText(book.thoughts)
                         
                         // Update UI for edit mode
-                        supportActionBar?.title = getString(R.string.edit_book)
+                        setToolbarTitle(getString(R.string.edit_book))
                         saveButton.text = getString(R.string.update)
                         
                         Log.d(TAG, "Loaded existing book: $book")
