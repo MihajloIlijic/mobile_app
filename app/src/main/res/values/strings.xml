@@ -17,6 +17,7 @@
     <string name="settings_description_text">Settings</string>
     <string name="add_book">Add Book</string>
     <string name="edit_book">Edit</string>
+    <string name="update">Update</string>
     <string name="delete_book">Delete</string>
     <string name="no_books_yet">No books yet</string>
     <string name="add_first_book">Tap the + button to add your first book</string>

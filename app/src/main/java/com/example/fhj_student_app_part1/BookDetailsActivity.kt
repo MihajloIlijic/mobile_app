@@ -1,5 +1,6 @@
 package com.example.fhj_student_app_part1
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -58,6 +59,15 @@ class BookDetailsActivity : AppCompatActivity() {
         
         // Setup button listeners
         setupButtonListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Reload book details in case they were updated
+        val bookId = intent.getStringExtra("book_id")
+        if (bookId != null) {
+            loadBookDetails(bookId)
+        }
     }
 
     private fun setupToolbar() {
@@ -151,8 +161,10 @@ class BookDetailsActivity : AppCompatActivity() {
         
         // Edit book button
         findViewById<MaterialButton>(R.id.btn_edit_book).setOnClickListener {
-            // TODO: Implement edit functionality
-            Toast.makeText(this, "Edit functionality coming soon", Toast.LENGTH_SHORT).show()
+            // Navigate to CreateBookActivity with book data for editing
+            val intent = Intent(this, CreateBookActivity::class.java)
+            intent.putExtra("book_id", book.id)
+            startActivity(intent)
         }
         
         // Delete book button
