@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fhj_student_app_part1.models.Book
+import com.example.fhj_student_app_part1.models.getLocalizedName
 import com.example.fhj_student_app_part1.repository.BookRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.button.MaterialButton
@@ -138,11 +139,11 @@ class BookAdapter(
         fun bind(book: Book, currentUserId: String?, onAction: (Book, BookAction) -> Unit) {
             itemView.findViewById<TextView>(R.id.tv_title).text = book.title
             itemView.findViewById<TextView>(R.id.tv_author).text = book.author
-            itemView.findViewById<TextView>(R.id.tv_status).text = book.status.name
+            itemView.findViewById<TextView>(R.id.tv_status).text = book.status.getLocalizedName(itemView.context)
             
             // Display owner email instead of ID
             val ownerEmail = getOwnerEmail(book.ownerId)
-            itemView.findViewById<TextView>(R.id.tv_owner).text = "Owner: $ownerEmail"
+            itemView.findViewById<TextView>(R.id.tv_owner).text = "${itemView.context.getString(R.string.owner)} $ownerEmail"
 
             // Apply light green background if book is owned by current user
             val isOwner = book.ownerId == currentUserId

@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.fhj_student_app_part1.models.Book
 import com.example.fhj_student_app_part1.models.BookStatus
+import com.example.fhj_student_app_part1.models.getLocalizedName
 import com.example.fhj_student_app_part1.repository.BookRepository
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
@@ -110,7 +111,7 @@ class BookDetailsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_book_author).text = book.author
         
         // Set current status
-        findViewById<TextView>(R.id.tv_current_status).text = book.status.name
+        findViewById<TextView>(R.id.tv_current_status).text = book.status.getLocalizedName(this)
 
         // Set owner ID
         findViewById<TextView>(R.id.tv_owner_id).text = getOwnerEmail(book.ownerId)
@@ -223,9 +224,9 @@ class BookDetailsActivity : AppCompatActivity() {
                 val result = repository.updateBook(updatedBook)
                 if (result.isSuccess) {
                     book = updatedBook
-                    findViewById<TextView>(R.id.tv_current_status).text = book.status.name
+                    findViewById<TextView>(R.id.tv_current_status).text = book.status.getLocalizedName(this@BookDetailsActivity)
                     findViewById<TextView>(R.id.tv_updated_date).text = SimpleDateFormat("MMM dd, yyyy 'at' HH:mm", Locale.getDefault()).format(Date(book.updatedAt))
-                    Toast.makeText(this@BookDetailsActivity, "Status updated to ${book.status.name}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookDetailsActivity, "Status updated to ${book.status.getLocalizedName(this@BookDetailsActivity)}", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@BookDetailsActivity, "Error updating status", Toast.LENGTH_SHORT).show()
                 }

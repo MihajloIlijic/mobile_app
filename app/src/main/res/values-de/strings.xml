@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Buch-Umfrage</string>
+    <string name="app_name">Book Poll</string>
     <string name="my_text">Willkommen zur Anmeldung</string>
     <string name="email_hint">E-Mail</string>
     <string name="password_hint">Passwort</string>
@@ -13,7 +13,7 @@
     <string name="create_acc">Konto erstellen</string>
     <string name="confirm_password">Passwort bestätigen</string>
     <string name="register">Registrieren</string>
-    <string name="landing_page_title">Buch-Umfrage</string>
+    <string name="landing_page_title">Book Poll</string>
     <string name="logout">Abmelden</string>
     <string name="settings_description_text">Einstellungen</string>
     <string name="add_book">Buch hinzufügen</string>
@@ -39,4 +39,6 @@
     <string name="author">Autor</string>
     <string name="title">Titel</string>
     <string name="thoughts_hint">Gedanken zu diesem Buch</string>
+    <string name="status_read">GELESEN</string>
+    <string name="status_unread">UNGELESEN</string>
 </resources> 

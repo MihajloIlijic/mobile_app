@@ -40,4 +40,6 @@
     <string name="author">Author</string>
     <string name="title">Title</string>
     <string name="thoughts_hint">Thoughts about this book</string>
+    <string name="status_read">READ</string>
+    <string name="status_unread">UNREAD</string>
 </resources>
