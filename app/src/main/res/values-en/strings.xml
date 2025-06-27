@@ -42,4 +42,14 @@
     <string name="thoughts_hint">Thoughts about this book</string>
     <string name="status_read">READ</string>
     <string name="status_unread">UNREAD</string>
+    <string name="delete_confirmation_title">Delete Book</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete \'%1$s\'? This action cannot be undone.</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_thoughts_added">No thoughts added yet</string>
+    <string name="error_loading_book">Error loading book</string>
+    <string name="error_updating_status">Error updating status</string>
+    <string name="error_deleting_book">Error deleting book</string>
+    <string name="book_deleted_successfully">Book deleted successfully</string>
+    <string name="status_updated_to">Status updated to %1$s</string>
+    <string name="only_own_books_status">You can only change status of your own books</string>
 </resources> 

@@ -94,7 +94,7 @@ class BookDetailsActivity : AppCompatActivity() {
                     book = result.getOrNull() ?: return@launch
                     displayBookDetails()
                 } else {
-                    Toast.makeText(this@BookDetailsActivity, "Error loading book", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookDetailsActivity, getString(R.string.error_loading_book), Toast.LENGTH_SHORT).show()
                     finish()
                 }
             } catch (e: Exception) {
@@ -125,7 +125,7 @@ class BookDetailsActivity : AppCompatActivity() {
             thoughtsTextView.text = book.thoughts
             thoughtsTextView.visibility = View.VISIBLE
         } else {
-            thoughtsTextView.text = "No thoughts added yet"
+            thoughtsTextView.text = getString(R.string.no_thoughts_added)
             thoughtsTextView.visibility = View.VISIBLE
         }
         
@@ -212,7 +212,7 @@ class BookDetailsActivity : AppCompatActivity() {
 
     private fun toggleBookStatus() {
         if (book.ownerId != currentUserId) {
-            Toast.makeText(this, "You can only change status of your own books", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.only_own_books_status), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -226,9 +226,9 @@ class BookDetailsActivity : AppCompatActivity() {
                     book = updatedBook
                     findViewById<TextView>(R.id.tv_current_status).text = book.status.getLocalizedName(this@BookDetailsActivity)
                     findViewById<TextView>(R.id.tv_updated_date).text = SimpleDateFormat("MMM dd, yyyy 'at' HH:mm", Locale.getDefault()).format(Date(book.updatedAt))
-                    Toast.makeText(this@BookDetailsActivity, "Status updated to ${book.status.getLocalizedName(this@BookDetailsActivity)}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookDetailsActivity, getString(R.string.status_updated_to, book.status.getLocalizedName(this@BookDetailsActivity)), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@BookDetailsActivity, "Error updating status", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookDetailsActivity, getString(R.string.error_updating_status), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error updating book status: ${e.message}", e)
@@ -239,12 +239,12 @@ class BookDetailsActivity : AppCompatActivity() {
 
     private fun showDeleteConfirmationDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Delete Book")
-            .setMessage("Are you sure you want to delete '${book.title}'? This action cannot be undone.")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(getString(R.string.delete_confirmation_title))
+            .setMessage(getString(R.string.delete_confirmation_message, book.title))
+            .setPositiveButton(getString(R.string.delete_book)) { _, _ ->
                 deleteBook()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -253,10 +253,10 @@ class BookDetailsActivity : AppCompatActivity() {
             try {
                 val result = repository.deleteBook(book.id)
                 if (result.isSuccess) {
-                    Toast.makeText(this@BookDetailsActivity, "Book deleted successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookDetailsActivity, getString(R.string.book_deleted_successfully), Toast.LENGTH_SHORT).show()
                     finish()
                 } else {
-                    Toast.makeText(this@BookDetailsActivity, "Error deleting book", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BookDetailsActivity, getString(R.string.error_deleting_book), Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error deleting book: ${e.message}", e)

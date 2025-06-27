@@ -41,4 +41,14 @@
     <string name="thoughts_hint">Gedanken zu diesem Buch</string>
     <string name="status_read">GELESEN</string>
     <string name="status_unread">UNGELESEN</string>
+    <string name="delete_confirmation_title">Buch löschen</string>
+    <string name="delete_confirmation_message">Sind Sie sicher, dass Sie \'%1$s\' löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="no_thoughts_added">Noch keine Gedanken hinzugefügt</string>
+    <string name="error_loading_book">Fehler beim Laden des Buchs</string>
+    <string name="error_updating_status">Fehler beim Aktualisieren des Status</string>
+    <string name="error_deleting_book">Fehler beim Löschen des Buchs</string>
+    <string name="book_deleted_successfully">Buch erfolgreich gelöscht</string>
+    <string name="status_updated_to">Status aktualisiert auf %1$s</string>
+    <string name="only_own_books_status">Sie können nur den Status Ihrer eigenen Bücher ändern</string>
 </resources> 
