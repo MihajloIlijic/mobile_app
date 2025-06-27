@@ -193,8 +193,8 @@ The app follows a simple but effective architecture:
 4. **Share**: Books are visible to all users, but only owners can modify them
 
 ## Authors
-Mihajlo Ilijic
-Oleksandra Annawitt
-Paria Nikparsa
+- **Mihajlo Ilijic**
+- **Oleksandra Annawitt**
+- **Paria Nikparsa**
 
 **Note**: This app requires a Firebase project to be set up before it can be used. Follow the Firebase setup instructions in the installation section. 
